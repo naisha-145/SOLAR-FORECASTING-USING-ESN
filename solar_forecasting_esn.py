@@ -68,8 +68,10 @@ def train_esn_model(X, y):
     # Initialize ESN
     esn = SimpleESN(n_readout=100, n_components=200, random_state=42)
 
-    # Fit and predict in one step (fit returns predictions for X_test)
-    y_pred = esn.fit(X_train, y_train, X_test)
+    # Fit on training data
+    esn.fit(X_train, y_train)
+    # Predict on test data
+    y_pred = esn.transform(X_test)
 
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
