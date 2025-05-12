@@ -73,6 +73,10 @@ def train_esn_model(X, y):
     # Predict on test data
     y_pred = esn.transform(X_test)
 
+    # Flatten y_pred if it's 2D
+    if y_pred.ndim > 1:
+        y_pred = y_pred.ravel()
+
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
     rmse = np.sqrt(mse)
