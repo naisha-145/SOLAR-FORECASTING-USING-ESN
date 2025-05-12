@@ -1,8 +1,8 @@
 import sys
 import subprocess
-
-# Clone and install simple_esn if not present
 import os
+
+# --- Clone and install simple_esn if not already installed ---
 if not os.path.exists('simple_esn'):
     subprocess.check_call(['git', 'clone', 'https://github.com/sylvchev/simple_esn.git'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', './simple_esn'])
@@ -68,9 +68,8 @@ def train_esn_model(X, y):
     # Initialize ESN
     esn = SimpleESN(n_readout=100, n_components=200, random_state=42)
 
-    # Fit and predict
-    esn.fit(X_train, y_train)
-    y_pred = esn.predict(X_test)
+    # Fit and predict in one step (fit returns predictions for X_test)
+    y_pred = esn.fit(X_train, y_train, X_test)
 
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
