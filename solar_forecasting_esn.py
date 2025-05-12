@@ -1,12 +1,13 @@
-# --- Ensure simple_esn is installed ---
-try:
-    from simple_esn.simple_esn import SimpleESN
-except ImportError:
-    import sys
-    import subprocess
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "simple_esn"])
-    from simple_esn.simple_esn import SimpleESN
+import sys
+import subprocess
 
+# Clone and install simple_esn if not present
+import os
+if not os.path.exists('simple_esn'):
+    subprocess.check_call(['git', 'clone', 'https://github.com/sylvchev/simple_esn.git'])
+subprocess.check_call([sys.executable, '-m', 'pip', 'install', './simple_esn'])
+
+from simple_esn.simple_esn import SimpleESN
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -97,4 +98,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
