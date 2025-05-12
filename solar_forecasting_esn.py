@@ -1,9 +1,16 @@
+# --- Ensure simple_esn is installed ---
+try:
+    from simple_esn.simple_esn import SimpleESN
+except ImportError:
+    import sys
+    import subprocess
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "simple_esn"])
+    from simple_esn.simple_esn import SimpleESN
 
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from simple_esn.simple_esn import SimpleESN
 
 def load_data(file_path):
     """Load dataset from Excel file."""
@@ -90,3 +97,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
